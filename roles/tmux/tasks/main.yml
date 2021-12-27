@@ -3,10 +3,6 @@
     name: tmux
   become: true
 
-- name: Detect if TPM is already installed
-  stat: path="{{ tmux_dot_dir }}/plugins/tpm"
-  register: tpm
-
 - name: Install TPM (Tmux Plugin Manager)
   git:
     repo: https://github.com/tmux-plugins/tpm.git
@@ -20,4 +16,3 @@
     {{ tmux_dot_dir }}/plugins/tpm/bin/update_plugins all
   environment:
     TMUX_PLUGIN_MANAGER_PATH: "{{ tmux_dot_dir }}/plugins"
-  when: tpm.stat.exists
