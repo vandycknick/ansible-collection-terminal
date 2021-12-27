@@ -32,6 +32,7 @@
 - name: Install fonts
   unarchive:
     src: "{{ ansible_env.HOME }}/.local/share/fonts/JetBrainsMono.zip"
+    remote_src: true
     dest: "{{ ansible_env.HOME }}/.local/share/fonts"
 
 - include_tasks: ./patch_libxft.yml
