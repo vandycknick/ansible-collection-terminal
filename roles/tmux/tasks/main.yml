@@ -1,4 +1,4 @@
-- name: Install ZSH
+- name: Install TMUX
   apt:
     name: tmux
   become: true
