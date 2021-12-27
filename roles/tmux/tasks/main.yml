@@ -1,0 +1,23 @@
+- name: Install ZSH
+  apt:
+    name: tmux
+  become: true
+
+- name: Detect if TPM is already installed
+  stat: path="{{ tmux_dot_dir }}/plugins/tpm"
+  register: tpm
+
+- name: Install TPM (Tmux Plugin Manager)
+  git:
+    repo: https://github.com/tmux-plugins/tpm.git
+    dest: "{{ tmux_dot_dir }}/plugins/tpm"
+    clone: yes
+    update: yes
+
+- name: Refresh tmux plugins
+  shell: |
+    {{ tmux_dot_dir }}/plugins/tpm/bin/install_plugins
+    {{ tmux_dot_dir }}/plugins/tpm/bin/update_plugins all
+  environment:
+    TMUX_PLUGIN_MANAGER_PATH: "{{ tmux_dot_dir }}/plugins"
+  when: tpm.stat.exists

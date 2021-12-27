@@ -1,0 +1,26 @@
+- name: Install ZSH
+  apt:
+    name: zsh
+  become: true
+
+- name: Install Oh My ZSH
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: "{{ zsh_dot_dir }}/oh-my-zsh"
+    clone: yes
+    update: yes
+
+- name: Install ZSH Plugins
+  git:
+    repo: "https://github.com/zsh-users/{{ item }}.git"
+    dest: "{{ zsh_dot_dir }}/custom/plugins/{{ item }}"
+    clone: yes
+    update: yes
+  with_items: "{{ zsh_plugins }}"
+
+- name: Set ZSH as the default shell
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+  become: yes
+  when: zsh_default_shell == true

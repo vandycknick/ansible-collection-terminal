@@ -1,0 +1,46 @@
+- name: Clone st repo locally.
+  git:
+    repo: "{{ st_repo }}"
+    dest: "{{ st_repo_local_destination }}"
+    version: "{{ st_repo_version }}"
+    accept_hostkey: "{{ st_repo_accept_hostkey }}"
+  become: false
+
+- name: Install dependencies
+  apt:
+    name: "{{ item }}"
+  become: true
+  with_items: "{{ st_dependencies }}"
+
+- name: Install st
+  make:
+    chdir: "{{ st_repo_local_destination }}"
+    target: install
+  become: true
+
+- name: Ensure fonts directory
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/fonts"
+    state: directory
+    recurse: true
+
+- name: Download fonts
+  get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts/JetBrainsMono.zip"
+
+- name: Install fonts
+  unarchive:
+    src: "{{ ansible_env.HOME }}/.local/share/fonts/JetBrainsMono.zip"
+    dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+
+- include_tasks: ./patch_libxft.yml
+  when: st_patch_libxft == true
+
+- name: Set ST as default terminal emulator
+  alternatives: # update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/local/bin/st 0
+    name: x-terminal-emulator
+    path: /usr/local/bin/st
+    priority: 0
+  become: true
+  when: st_default_terminal_emulator == true

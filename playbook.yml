@@ -1,0 +1,10 @@
+- hosts: localhost
+
+  vars:
+    st_patch_libxft: true
+    st_default_terminal_emulator: true
+
+  roles:
+    - role: ./roles/st
+    - role: ./roles/zsh
+    - role: ./roles/tmux
