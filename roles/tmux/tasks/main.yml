@@ -11,8 +11,8 @@
   git:
     repo: https://github.com/tmux-plugins/tpm.git
     dest: "{{ tmux_dot_dir }}/plugins/tpm"
-    clone: yes
-    update: yes
+    clone: true
+    update: true
 
 - name: Refresh tmux plugins
   shell: |

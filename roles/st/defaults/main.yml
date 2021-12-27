@@ -6,9 +6,10 @@ st_default_terminal_emulator: false
 
 st_dependencies:
   - make
-  - gcc # or use build-essential which includes both gcc and make 🤔
+  # or use build-essential which includes both gcc and make 🤔
+  - gcc
   - fontconfig
-  - libfreetype6 # freetype2
+  - libfreetype6
   - libharfbuzz-dev
   - fonts-noto-color-emoji
 

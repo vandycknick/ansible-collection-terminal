@@ -1,0 +1,32 @@
+namespace: vandycknick
+name: terminal
+version: "0.1.0"
+readme: README.md
+
+authors:
+  - geerlingguy
+
+description: Collection of tools to configure my personal terminal environment
+
+# Either a single license or a list of licenses for content inside of a collection. Ansible Galaxy currently only
+# accepts L(SPDX,https://spdx.org/licenses/) licenses. This key is mutually exclusive with 'license_file'
+license:
+  - MIT
+
+# A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
+# requirements as 'namespace' and 'name'
+tags:
+  - terminal
+  - st
+  - zsh
+  - termux
+
+dependencies:
+  community.general: ">=3.0.0"
+
+repository: https://github.com/vandycknick/ansible-collection-terminal
+documentation: https://github.com/vandycknick/ansible-collection-terminal
+homepage: https://nvd.codes
+issues: https://github.com/vandycknick/ansible-collection-terminal/issues
+
+build_ignore: []

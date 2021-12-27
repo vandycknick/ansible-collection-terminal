@@ -38,7 +38,8 @@
   when: st_patch_libxft == true
 
 - name: Set ST as default terminal emulator
-  alternatives: # update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/local/bin/st 0
+  # update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/local/bin/st 0
+  alternatives:
     name: x-terminal-emulator
     path: /usr/local/bin/st
     priority: 0

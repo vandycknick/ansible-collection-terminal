@@ -7,20 +7,20 @@
   git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: "{{ zsh_dot_dir }}/oh-my-zsh"
-    clone: yes
-    update: yes
+    clone: true
+    update: true
 
 - name: Install ZSH Plugins
   git:
     repo: "https://github.com/zsh-users/{{ item }}.git"
     dest: "{{ zsh_dot_dir }}/custom/plugins/{{ item }}"
-    clone: yes
-    update: yes
+    clone: true
+    update: true
   with_items: "{{ zsh_plugins }}"
 
 - name: Set ZSH as the default shell
   user:
     name: "{{ ansible_user_id }}"
     shell: /bin/zsh
-  become: yes
+  become: true
   when: zsh_default_shell == true
