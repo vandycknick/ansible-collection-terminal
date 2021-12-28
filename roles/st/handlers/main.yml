@@ -1,0 +1,4 @@
+- name: Refresh font cache
+  command:
+    cmd: fc-cache
+  listen: "refresh font cache"

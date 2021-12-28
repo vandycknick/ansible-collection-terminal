@@ -18,22 +18,26 @@
     target: install
   become: true
 
-- name: Ensure fonts directory
-  file:
-    path: "{{ ansible_env.HOME }}/.local/share/fonts"
-    state: directory
-    recurse: true
+- name: Install JetBrains Mono Fonts
+  block:
+    - name: Ensure fonts directory
+      file:
+        path: "{{ ansible_env.HOME }}/.local/share/fonts"
+        state: directory
+        recurse: true
 
-- name: Download fonts
-  get_url:
-    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip
-    dest: "{{ ansible_env.HOME }}/.local/share/fonts/JetBrainsMono.zip"
+    - name: Install fontconfig
+      ansible.builtin.package:
+        name:
+          - fontconfig
 
-- name: Install fonts
-  unarchive:
-    src: "{{ ansible_env.HOME }}/.local/share/fonts/JetBrainsMono.zip"
-    remote_src: true
-    dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+    - name: Install JetBrains Mono typeface
+      unarchive:
+        creates: "{{ ansible_env.HOME }}/.local/share/fonts/fonts/ttf/JetBrainsMono-*"
+        src: "https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip"
+        remote_src: true
+        dest: "{{ ansible_env.HOME }}/.local/share/fonts"
+      notify: "refresh font cache"
 
 - include_tasks: ./patch_libxft.yml
   when: st_patch_libxft == true
