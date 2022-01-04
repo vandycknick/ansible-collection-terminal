@@ -1,7 +1,13 @@
-- name: Install TMUX
+- name: Ensure tmux installed
   apt:
     name: tmux
   become: true
+  when: ansible_os_family == "Debian"
+
+- name: Ensure tmux installed Mac
+  shell: brew install tmux
+  creates: /usr/local/bin/tmux
+  when: ansible_os_family == "Darwin"
 
 - name: Install TPM (Tmux Plugin Manager)
   git:
