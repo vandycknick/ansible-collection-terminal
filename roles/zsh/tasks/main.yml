@@ -6,7 +6,8 @@
 
 - name: Ensure zsh installed Mac
   shell: brew install zsh
-  creates: /usr/local/bin/zsh
+  args:
+    creates: /usr/local/bin/zsh
   when: ansible_os_family == "Darwin"
 
 - name: Install Oh My ZSH
