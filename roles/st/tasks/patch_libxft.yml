@@ -36,9 +36,6 @@
     path: /lib/x86_64-linux-gnu/libXft.so.2.3.4
   register: libxft
 
-- debug:
-    msg: "{{ libxft }}"
-
 - name: Backup original libXft.so.2.3.4
   copy:
     src: /lib/x86_64-linux-gnu/libXft.so.2.3.4
