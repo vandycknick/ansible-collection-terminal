@@ -31,11 +31,27 @@
     target: install
   become: true
 
+- name: Check type of /lib/x86_64-linux-gnu/libXft.so.2.3.4
+  stat:
+    path: /lib/x86_64-linux-gnu/libXft.so.2.3.4
+  register: libxft
+
+- debug:
+    msg: "{{ libxft }}"
+
+- name: Backup original libXft.so.2.3.4
+  copy:
+    src: /lib/x86_64-linux-gnu/libXft.so.2.3.4
+    dest: /lib/x86_64-linux-gnu/libXft.so.2.3.4.backup
+  become: true
+  when: "libxft.stat.isreg == true"
+
 - name: Patch libxft library
   file:
     src: /usr/lib/libXft.so.2.3.4
     dest: /lib/x86_64-linux-gnu/libXft.so.2.3.4
     state: link
+    force: true
   become: true
 
 - name: Patch libxft library
@@ -43,4 +59,5 @@
     src: /lib/x86_64-linux-gnu/libXft.so.2.3.4
     dest: /lib/x86_64-linux-gnu/libXft.so.2
     state: link
+    force: true
   become: true
