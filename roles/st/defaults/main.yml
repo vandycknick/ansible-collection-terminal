@@ -6,8 +6,8 @@ st_default_terminal_emulator: false
 
 st_dependencies:
   - make
-  # or use build-essential which includes both gcc and make 🤔
   - gcc
+  - unzip
   - fontconfig
   - libfreetype6
   - libharfbuzz-dev
