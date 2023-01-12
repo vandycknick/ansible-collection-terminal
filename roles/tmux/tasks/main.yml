@@ -23,3 +23,7 @@
     {{ tmux_dot_dir }}/plugins/tpm/bin/update_plugins all
   environment:
     TMUX_PLUGIN_MANAGER_PATH: "{{ tmux_dot_dir }}/plugins"
+  register: tmux_plugin_out
+  # This technically isn't correct and will only show changes on initial install not updates
+  # but it is currently the best I can come up with.
+  changed_when: "'download success' not in tmux_plugin_out.stdout"
