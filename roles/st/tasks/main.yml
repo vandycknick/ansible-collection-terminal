@@ -42,9 +42,6 @@
         dest: "{{ ansible_env.HOME }}/.local/share/fonts"
       notify: "refresh font cache"
 
-- include_tasks: ./patch_libxft.yml
-  when: st_patch_libxft == true
-
 - name: Set ST as default terminal emulator
   # update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/local/bin/st 0
   alternatives:
