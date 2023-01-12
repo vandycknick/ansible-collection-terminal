@@ -3,6 +3,7 @@ st_repo_version: main
 st_repo_accept_hostkey: false
 st_repo_local_destination: "{{ ansible_env.HOME }}/Projects/st"
 st_default_terminal_emulator: false
+st_force_install: false
 
 st_dependencies:
   - make

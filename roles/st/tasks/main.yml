@@ -5,6 +5,7 @@
     version: "{{ st_repo_version }}"
     accept_hostkey: "{{ st_repo_accept_hostkey }}"
   become: false
+  register: st_repo
 
 - name: Install dependencies
   apt:
@@ -13,9 +14,11 @@
   with_items: "{{ st_dependencies }}"
 
 - name: Install st
-  make:
+  shell: |
+    make install
+  args:
     chdir: "{{ st_repo_local_destination }}"
-    target: install
+    creates: "{{ (st_repo.changed == true or st_force_install == true) | ternary('/usr/local/bin/st_dummy', '/usr/local/bin/st') }}"
   become: true
 
 - name: Install JetBrains Mono Fonts
