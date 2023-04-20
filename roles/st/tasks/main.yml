@@ -34,10 +34,10 @@
         name:
           - fontconfig
 
-    - name: Install JetBrains Mono typeface
+    - name: Install JetBrains Mono Nerd Font typeface
       unarchive:
-        creates: "{{ ansible_env.HOME }}/.local/share/fonts/fonts/ttf/JetBrainsMono-*"
-        src: "https://github.com/JetBrains/JetBrainsMono/releases/download/v2.242/JetBrainsMono-2.242.zip"
+        creates: "{{ ansible_env.HOME }}/.local/share/fonts/JetBrainsMono-*"
+        src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/JetBrainsMono.zip"
         remote_src: true
         dest: "{{ ansible_env.HOME }}/.local/share/fonts"
       notify: "refresh font cache"
