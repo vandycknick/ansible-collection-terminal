@@ -37,7 +37,7 @@
     - name: Install JetBrains Mono Nerd Font typeface
       unarchive:
         creates: "{{ ansible_env.HOME }}/.local/share/fonts/JetBrainsMono-*"
-        src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/JetBrainsMono.zip"
+        src: "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip"
         remote_src: true
         dest: "{{ ansible_env.HOME }}/.local/share/fonts"
       notify: "refresh font cache"
